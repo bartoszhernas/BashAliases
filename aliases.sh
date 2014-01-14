@@ -34,3 +34,20 @@ eval "$(hub alias -s)"
 pman () {
     man -t "${1}" | open -f -a /Applications/Preview.app
 }
+
+
+export SENCHA_CMD_3_0_0="/Users/bartg/Developer/Work/inventorum.ios.native/www/parts/sencha/Sencha/Cmd/3.1.2.342"
+
+export PS1="\[\e[1m\]________________________________________________________________________________\n\[\e[1;30;47m\]| \W @ \h (\u) \n| => \[\e[0m\]"
+
+
+
+
+
+
+PEBBLE_SDK_HOME=$HOME/pebble/pebble-sdk
+PEBBLE_TOOLCHAIN_HOME=$HOME/pebble/arm-cs-tools
+PEBBLE_SDK=$PEBBLE_SDK_HOME/sdk
+PATH=$PEBBLE_SDK:$PEBBLE_SDK_HOME/tools:$PEBBLE_TOOLCHAIN_HOME/bin:$PATH
+alias create_pebble_project="create_pebble_project.py $PEBBLE_SDK"
+alias update_pebble_project="create_pebbble_project.py --symlink-only $PEBBLE_SDK"
