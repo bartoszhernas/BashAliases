@@ -17,8 +17,9 @@ alias flush="dscacheutil -flushcache" # Flush DNS cache
 alias gzip="gzip -9n" # set strongest compression level as ‘default’ for gzip
 alias ping="ping -c 5" # ping 5 times ‘by default’
 alias ql="qlmanage -p 2>/dev/null" # preview a file using QuickLook
+alias git-clean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 
-
+alias presstydir="cd ~/Developer/Pressty/"
 
 alias chrome="open -a Google\ Chrome --args --disable-web-security"
 alias tw='open -a /Applications/TextWrangler.app'
@@ -26,10 +27,13 @@ alias tw='open -a /Applications/TextWrangler.app'
 alias invsass="cd  /Users/bartg/Developer/Work/inventorum.ios.native/www/resources/sass/"
 alias sassc="compass compile"
 alias inv="cd  /Users/bartg/Developer/Work/inventorum.ios.native/www/"
-alias invshop="cd  /Users/bartg/Developer/Work/InventorumWebShop/"
 
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export DOCKER_TLS_VERIFY=1
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=/Users/bartg/.boot2docker/certs/boot2docker-vm
 
-eval "$(hub alias -s)"
 
 pman () {
     man -t "${1}" | open -f -a /Applications/Preview.app
@@ -38,16 +42,27 @@ pman () {
 
 export SENCHA_CMD_3_0_0="/Users/bartg/Developer/Work/inventorum.ios.native/www/parts/sencha/Sencha/Cmd/3.1.2.342"
 
-export PS1="\[\e[1m\]________________________________________________________________________________\n\[\e[1;30;47m\]| \W @ \h (\u) \n| => \[\e[0m\]"
+
+export MAKEOPTS="-j9"
+
+export PATH=/opt/local/lib/postgresql92/bin:$PATH
+export PATH=/Users/bartg/pebble-dev/PebbleSDK-current/bin:$PATH
+
+export PATH=$PATH:/usr/local/cuda/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib
+
+export PATH=/Users/bartg/Qt/5.3/clang_64/bin/:$PATH
+export C_INCLUDE_PATH="/opt/local/include"
+export LIBRARY_PATH="/opt/local/lib"
+export PATH=/opt/local/bin:$PATH
 
 
+eval "$(hub alias -s)"
 
+alias swift='/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift'
 
+function checkport {
+ PORT=$1
+ sudo lsof -iTCP:$PORT -sTCP:LISTEN
+}
 
-
-PEBBLE_SDK_HOME=$HOME/pebble/pebble-sdk
-PEBBLE_TOOLCHAIN_HOME=$HOME/pebble/arm-cs-tools
-PEBBLE_SDK=$PEBBLE_SDK_HOME/sdk
-PATH=$PEBBLE_SDK:$PEBBLE_SDK_HOME/tools:$PEBBLE_TOOLCHAIN_HOME/bin:$PATH
-alias create_pebble_project="create_pebble_project.py $PEBBLE_SDK"
-alias update_pebble_project="create_pebbble_project.py --symlink-only $PEBBLE_SDK"
