@@ -45,7 +45,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git gitfast jsontools macports npm pip pod python sudo urltools vagrant)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -61,7 +61,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:/Users/bartg/Developer/Work/inventor
  if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
  else
-   export EDITOR='vim'
+   export EDITOR='mvim'
  fi
 
 # Compilation flags
@@ -79,8 +79,4 @@ export PATH="/opt/local/bin:/opt/local/sbin:/Users/bartg/Developer/Work/inventor
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
-# Custom aliases
-alias mvim="~/scripts/mvim"
 

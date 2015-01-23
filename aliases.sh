@@ -19,10 +19,7 @@ alias ping="ping -c 5" # ping 5 times ‘by default’
 alias ql="qlmanage -p 2>/dev/null" # preview a file using QuickLook
 alias git-clean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 
-alias presstydir="cd ~/Developer/Pressty/"
-
 alias chrome="open -a Google\ Chrome --args --disable-web-security"
-alias tw='open -a /Applications/TextWrangler.app'
 
 alias invsass="cd  /Users/bartg/Developer/Work/inventorum.ios.native/www/resources/sass/"
 alias sassc="compass compile"
@@ -57,12 +54,12 @@ export LIBRARY_PATH="/opt/local/lib"
 export PATH=/opt/local/bin:$PATH
 
 
-eval "$(hub alias -s)"
-
-alias swift='/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift'
 
 function checkport {
  PORT=$1
  sudo lsof -iTCP:$PORT -sTCP:LISTEN
 }
+
+alias wget="curl -O --retry 999 --retry-max-time 0 -C -"
+alias mvim="~/.dotfiles/mvim"
 
