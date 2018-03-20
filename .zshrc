@@ -1,14 +1,20 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="ys"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -26,12 +32,12 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -45,30 +51,29 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitfast jsontools macports npm pip pod python sudo urltools vagrant)
+plugins=(git gitfast npm pip pod python sudo urltools vagrant zsh-completions kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/opt/local/bin:/opt/local/sbin:/Users/bartg/Developer/Work/inventorum.ios.native/www/parts/sencha/Sencha/Cmd/3.1.2.342:/Users/bartg/Developer/Work/aezmockup/parts/sencha/Sencha/Cmd/4.0.4.84:/Applications/SenchaCMD/Sencha/Cmd/4.0.4.84:/Users/bartg/Qt/5.3/clang_64/bin/:/Users/bartg/pebble-dev/PebbleSDK-current/bin:/opt/local/lib/postgresql92/bin:/Users/bartg/pebble/pebble-sdk/sdk:/Users/bartg/pebble/pebble-sdk/tools:/Users/bartg/pebble/arm-cs-tools/bin:/Applications/SenchaCMD/:/Users/bartg/bin/Sencha/Cmd/3.1.2.342:/Applications/MAMP/Library/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/go/bin:/usr/local/MacGPG2/bin:/Users/bartg/.rvm/bin:/Users/bartg/Documents/Android/sdk/tools:/Development/android-sdk-macosx/tools:/usr/local/go/bin:/Users/bartg/go/bin:/usr/local/cuda/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
- export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='mvim'
- fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -78,5 +83,52 @@ export PATH="/opt/local/bin:/opt/local/sbin:/Users/bartg/Developer/Work/inventor
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+export LC_CTYPE=”en_US.UTF-8″
+export LC_NUMERIC=”en_US.UTF-8″
+export LC_TIME=”en_US.UTF-8″
+export LC_COLLATE=”en_US.UTF-8″
+export LC_MONETARY=”en_US.UTF-8″
+export LC_MESSAGES=”en_US.UTF-8″
+export LC_PAPER=”en_US.UTF-8″
+export LC_NAME=”en_US.UTF-8″
+export LC_ADDRESS=”en_US.UTF-8″
+export LC_TELEPHONE=”en_US.UTF-8″
+export LC_MEASUREMENT=”en_US.UTF-8″
+export LC_IDENTIFICATION=”en_US.UTF-8″
+
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export EDITOR='vim'
+source ~/.dotfiles/aliases.sh
+
+### Rust
+export RUST_SRC_PATH=${HOME}/.rust/src
+export PATH=${HOME}/.cargo/bin:${PATH}
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/bhernas/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/bhernas/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/bhernas/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/bhernas/google-cloud-sdk/completion.zsh.inc'
+fi
+
+pyclean () {
+        find . -type f -name "*.py[co]" -delete
+        find . -type d -name "__pycache__" -delete
+}
+export PATH="/Applications/VirtualBox.app/Contents/MacOS:$PATH"
+
+
+export PATH="$PATH:`yarn global bin`"
+export PATH=~/Developer/flutter/bin:$PATH
