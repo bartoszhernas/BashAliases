@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -9,7 +16,7 @@ export ZSH="/Users/bartoszhernas/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="ys"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -63,7 +70,7 @@ ZSH_THEME="ys"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(gitfast kubectl)
+plugins=(gitfast kubectl yarn-completion)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -187,6 +194,7 @@ alias purgeallbuilds='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
 alias weather="~/.dotfiles/weather.sh"
 alias ahoy="cd ~/Developer/AHOY/"
 alias stamp="cd ~/Developer/STAMP/"
+alias quizado="cd ~/Developer/Quizado/"
 alias dockerclean='eval $(docker-machine env -u) && docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias git-clean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 
@@ -206,14 +214,30 @@ pyclean () {
 }
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+function externalips {
+  kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }'; echo
+}
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# For gcloud CLI to work
+export CLOUDSDK_PYTHON=python2
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/bartoszhernas/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartoszhernas/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/bartoszhernas/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszhernas/google-cloud-sdk/completion.zsh.inc'; fi
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-function externalips {
-  kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }'; echo
+
+agr () {
+  # find and replace
+  regex=s/${1}/${2}/g;
+  ag $1 -l | xargs sed -i.agr_backup $regex;
+  # delete backups
+  ag -G .agr_backup -l | xargs rm
 }
