@@ -247,7 +247,7 @@ export PATH="/usr/local/bin:$PATH"
 alias winsteam="gameportingtoolkit ~/windows10 'C:\Program Files (x86)\Steam\steam.exe'"
 
 lazynvm() {
-  unset -f nvm node npm
+  unset -f nvm node npm pnpm
   export NVM_DIR=~/.nvm
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 }
@@ -265,4 +265,9 @@ node() {
 npm() {
   lazynvm
   npm $@
+}
+
+pnpm() {
+  lazynvm
+  pnpm $@
 }
