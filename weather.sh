@@ -1,5 +1,5 @@
 #!/bin/bash
-DEFAULT="Warsaw"
+DEFAULT="Uduvere"
 if [ $# -ne 1 ]; then
 curl wttr.in/$DEFAULT
 else

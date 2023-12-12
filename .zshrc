@@ -135,32 +135,11 @@ export EDITOR='vim'
 export RUST_SRC_PATH=${HOME}/.rust/src
 export PATH=${HOME}/.cargo/bin:${PATH}
 
-
 export PATH=~/Developer/flutter/bin:$PATH
 export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/:$PATH
 
-# Defer initialization of nvm until nvm, node or a node-dependent command is
-# run. Ensure this block is only run once if .bashrc gets sourced multiple times
-# by checking whether __init_nvm is a function.
-# if [ -s "/usr/local/opt/nvm" ] && [ ! "$(type __init_nvm)" = "__init_nvm is a shell function from /Users/bartoszhernas/.zshrc" ]; then
-#   export NVM_DIR="$HOME/.nvm"
-#   [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-#   declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
-#   function __init_nvm() {
-#     for i in "${__node_commands[@]}"; do unalias $i; done
-#     . "/usr/local/opt/nvm"/nvm.sh
-#     unset __node_commands
-#     unset -f __init_nvm
-#   }
-#   for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-# fi
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
@@ -192,12 +171,13 @@ alias DT='tee ~/Downloads/terminalOut.txt'    # DT:           Pipe content to fi
 
 alias purgeallbuilds='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
 alias weather="~/.dotfiles/weather.sh"
-alias ahoy="cd ~/Developer/AHOY/"
-alias stamp="cd ~/Developer/STAMP/"
+alias fym="cd ~/Developer/FYM/"
+alias gpb="cd ~/Developer/GetPassbook/"
 alias quizado="cd ~/Developer/Quizado/"
-alias dockerclean='eval $(docker-machine env -u) && docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+alias revenuebear="cd ~/Developer/RevenueBear/"
+alias dockerclean='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker volume prune -f'
 alias git-clean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
-
+alias stoicfm="cd ~/Developer/Hernas/stoicfm/web"
 # Get readable list of network IPs
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -224,12 +204,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # For gcloud CLI to work
 export CLOUDSDK_PYTHON=python2
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/bartoszhernas/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartoszhernas/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/bartoszhernas/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszhernas/google-cloud-sdk/completion.zsh.inc'; fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -240,4 +214,55 @@ agr () {
   ag $1 -l | xargs sed -i.agr_backup $regex;
   # delete backups
   ag -G .agr_backup -l | xargs rm
+}
+
+code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+boop () {
+  local last="$?"
+  if [[ "$last" == '0' ]]; then
+    sfx good
+  else
+    sfx bad
+  fi
+  $(exit "$last")
+}
+
+export GOPATH="$HOME/go"
+export PATH="$HOME/node:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-15.0.2.jdk/Contents/Home
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+alias k="kubectl"
+complete -F __start_kubectl k
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export NODE_OPTIONS="--max-old-space-size=8192" # Increases to 8 GB
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+alias winsteam="gameportingtoolkit ~/windows10 'C:\Program Files (x86)\Steam\steam.exe'"
+
+lazynvm() {
+  unset -f nvm node npm
+  export NVM_DIR=~/.nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+}
+
+nvm() {
+  lazynvm 
+  nvm $@
+}
+
+node() {
+  lazynvm
+  node $@
+}
+
+npm() {
+  lazynvm
+  npm $@
 }
