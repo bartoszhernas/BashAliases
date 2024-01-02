@@ -109,9 +109,6 @@ export EDITOR='subl -w'
 
 
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-
-export PATH="$HOME/.cargo/bin:$PATH"
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 export LC_CTYPE=”en_US.UTF-8″
@@ -135,9 +132,6 @@ export EDITOR='vim'
 export RUST_SRC_PATH=${HOME}/.rust/src
 export PATH=${HOME}/.cargo/bin:${PATH}
 
-export PATH=~/Developer/flutter/bin:$PATH
-export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/:$PATH
-
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -145,6 +139,9 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# RVM
+export PATH=~/.rvm/bin:$PATH
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 # Aliases
 alias cp='cp -iv'                           # Preferred 'cp' implementation
@@ -175,7 +172,7 @@ alias fym="cd ~/Developer/FYM/"
 alias gpb="cd ~/Developer/GetPassbook/"
 alias quizado="cd ~/Developer/Quizado/"
 alias revenuebear="cd ~/Developer/RevenueBear/"
-alias dockerclean='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker volume prune -f'
+alias dockerclean='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker volume prune -f -a'
 alias git-clean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 alias stoicfm="cd ~/Developer/Hernas/stoicfm/web"
 # Get readable list of network IPs
@@ -228,7 +225,6 @@ boop () {
 }
 
 export GOPATH="$HOME/go"
-export PATH="$HOME/node:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
@@ -242,9 +238,6 @@ complete -F __start_kubectl k
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export NODE_OPTIONS="--max-old-space-size=8192" # Increases to 8 GB
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-alias winsteam="gameportingtoolkit ~/windows10 'C:\Program Files (x86)\Steam\steam.exe'"
 
 lazynvm() {
   unset -f nvm node npm pnpm
