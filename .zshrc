@@ -184,6 +184,8 @@ alias gzip="gzip -9n" # set strongest compression level as ‘default’ for gzi
 alias ping="ping -c 5" # ping 5 times ‘by default’
 
 alias dc="docker-compose"
+alias dp="docker -H "ssh://192.168.1.20""
+alias dcp="docker -H "ssh://192.168.1.20" compose"
 
 pyclean () {
         find . -type f -name "*.py[co]" -delete
@@ -228,7 +230,8 @@ export GOPATH="$HOME/go"
 export PATH="$HOME/go/bin:$PATH"
 
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-15.0.2.jdk/Contents/Home
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-15.0.2.jdk/Contents/Home
+export JAVA_HOME="/Users/bartoszhernas/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -263,4 +266,23 @@ npm() {
 pnpm() {
   lazynvm
   pnpm $@
+}
+
+kcdebug() { 
+  kubectl run -i --rm --tty debug --image=busybox --restart=Never -- sh
+}
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export REACT_EDITOR=code
+
+listening() {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
 }
