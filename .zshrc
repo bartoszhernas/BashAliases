@@ -172,7 +172,8 @@ alias fym="cd ~/Developer/FYM/"
 alias gpb="cd ~/Developer/GetPassbook/"
 alias quizado="cd ~/Developer/Quizado/"
 alias revenuebear="cd ~/Developer/RevenueBear/"
-alias dockerclean='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker volume prune -f -a'
+alias dockerclean='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+alias dockercleanvolumes='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker volume prune -f -a'
 alias git-clean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 alias stoicfm="cd ~/Developer/Hernas/stoicfm/web"
 # Get readable list of network IPs
@@ -184,8 +185,13 @@ alias gzip="gzip -9n" # set strongest compression level as ‘default’ for gzi
 alias ping="ping -c 5" # ping 5 times ‘by default’
 
 alias dc="docker-compose"
-alias dp="docker -H "ssh://192.168.1.20""
-alias dcp="docker -H "ssh://192.168.1.20" compose"
+
+# alias dp="docker -H "ssh://192.168.1.20""
+# alias dpclean="docker -H ssh://192.168.1.20 stop $(docker  -H ssh://192.168.1.20 ps -a -q)"
+# alias dcp="docker -H "ssh://192.168.1.20" compose"
+
+alias dcn="docker -H "ssh://root@192.168.1.138" compose"
+alias dn="docker -H "ssh://root@192.168.1.138""
 
 pyclean () {
         find . -type f -name "*.py[co]" -delete
@@ -286,3 +292,7 @@ listening() {
         echo "Usage: listening [pattern]"
     fi
 }
+
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
