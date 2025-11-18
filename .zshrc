@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/Users/bartoszhernas/.zsh/completions:"* ]]; then export FPATH="/Users/bartoszhernas/.zsh/completions:$FPATH"; fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -139,10 +141,6 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# RVM
-export PATH=~/.rvm/bin:$PATH
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 # Aliases
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
@@ -186,12 +184,14 @@ alias ping="ping -c 5" # ping 5 times ‘by default’
 
 alias dc="docker-compose"
 
-# alias dp="docker -H "ssh://192.168.1.20""
-# alias dpclean="docker -H ssh://192.168.1.20 stop $(docker  -H ssh://192.168.1.20 ps -a -q)"
-# alias dcp="docker -H "ssh://192.168.1.20" compose"
+alias dcee="docker -H ssh://root@nas.ee.hern.as compose"
+alias dockeree="docker -H ssh://root@nas.ee.hern.as"
 
-alias dcn="docker -H "ssh://root@192.168.1.138" compose"
-alias dn="docker -H "ssh://root@192.168.1.138""
+alias dcpl="docker -H ssh://root@nas.pl.hern.as compose"
+alias dockerpl="docker -H ssh://root@nas.pl.hern.as"
+
+alias dcdev="docker -H ssh://root@dev.hern.as compose"
+alias dockerdev="docker -H ssh://root@dev.hern.as"
 
 pyclean () {
         find . -type f -name "*.py[co]" -delete
@@ -296,3 +296,9 @@ listening() {
 # export PYENV_ROOT="$HOME/.pyenv"
 # [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init -)"
+# Scaleway CLI autocomplete initialization.
+eval "$(scw autocomplete script shell=zsh)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+. "/Users/bartoszhernas/.deno/env"
